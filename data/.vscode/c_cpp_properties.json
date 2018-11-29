@@ -1,0 +1,159 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "${workspaceFolder}"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/ekhtml",
+                "${workspaceFolder}/ekhtml/include",
+                "${workspaceFolder}/ekhtml/src",
+                "${workspaceFolder}/helpers/basic_auth/MSNT",
+                "${workspaceFolder}/helpers/basic_auth/mswin_sspi",
+                "${workspaceFolder}/helpers/basic_auth/NCSA",
+                "${workspaceFolder}/helpers/basic_auth/YP",
+                "${workspaceFolder}/helpers/digest_auth/ldap",
+                "${workspaceFolder}/helpers/digest_auth/password",
+                "${workspaceFolder}/helpers/external_acl/ip_user",
+                "${workspaceFolder}/helpers/external_acl/mswin_lm_group",
+                "${workspaceFolder}/helpers/negotiate_auth/mswin_sspi",
+                "${workspaceFolder}/helpers/ntlm_auth/fakeauth",
+                "${workspaceFolder}/helpers/ntlm_auth/mswin_sspi",
+                "${workspaceFolder}/helpers/ntlm_auth/SMB",
+                "${workspaceFolder}/helpers/ntlm_auth/SMB/smbval",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include/sodium",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/aio",
+                "${workspaceFolder}/src/anti",
+                "${workspaceFolder}/src/auth/basic",
+                "${workspaceFolder}/src/auth/digest",
+                "${workspaceFolder}/src/auth/negotiate",
+                "${workspaceFolder}/src/auth/ntlm",
+                "${workspaceFolder}/src/content_rewrite",
+                "${workspaceFolder}/src/cr",
+                "${workspaceFolder}/src/fs/aufs",
+                "${workspaceFolder}/src/fs/coss",
+                "${workspaceFolder}/src/fs/diskd",
+                "${workspaceFolder}/src/fs/mmap",
+                "${workspaceFolder}/src/fs/ufs",
+                "${workspaceFolder}/src/hls_prefetch",
+                "${workspaceFolder}/src/libenc-check",
+                "${workspaceFolder}/src/mc",
+                "${workspaceFolder}/src/nginx_h264_streaming",
+                "${workspaceFolder}/src/overwrite",
+                "${workspaceFolder}/src/repl/heap",
+                "${workspaceFolder}/tools",
+                "/usr/lib/gcc/x86_64-redhat-linux/7/include",
+                "/usr/include/c++/7",
+                "/usr/include/c++/7/x86_64-redhat-linux",
+                "/usr/include/c++/7/backward",
+                "/usr/local/include",
+                "/usr/lib64/clang/5.0.1/include",
+                "/usr/include"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/ekhtml",
+                    "${workspaceFolder}/ekhtml/include",
+                    "${workspaceFolder}/ekhtml/src",
+                    "${workspaceFolder}/helpers/basic_auth/MSNT",
+                    "${workspaceFolder}/helpers/basic_auth/mswin_sspi",
+                    "${workspaceFolder}/helpers/basic_auth/NCSA",
+                    "${workspaceFolder}/helpers/basic_auth/YP",
+                    "${workspaceFolder}/helpers/digest_auth/ldap",
+                    "${workspaceFolder}/helpers/digest_auth/password",
+                    "${workspaceFolder}/helpers/external_acl/ip_user",
+                    "${workspaceFolder}/helpers/external_acl/mswin_lm_group",
+                    "${workspaceFolder}/helpers/negotiate_auth/mswin_sspi",
+                    "${workspaceFolder}/helpers/ntlm_auth/fakeauth",
+                    "${workspaceFolder}/helpers/ntlm_auth/mswin_sspi",
+                    "${workspaceFolder}/helpers/ntlm_auth/SMB",
+                    "${workspaceFolder}/helpers/ntlm_auth/SMB/smbval",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/include/sodium",
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/src/aio",
+                    "${workspaceFolder}/src/anti",
+                    "${workspaceFolder}/src/auth/basic",
+                    "${workspaceFolder}/src/auth/digest",
+                    "${workspaceFolder}/src/auth/negotiate",
+                    "${workspaceFolder}/src/auth/ntlm",
+                    "${workspaceFolder}/src/content_rewrite",
+                    "${workspaceFolder}/src/cr",
+                    "${workspaceFolder}/src/fs/aufs",
+                    "${workspaceFolder}/src/fs/coss",
+                    "${workspaceFolder}/src/fs/diskd",
+                    "${workspaceFolder}/src/fs/mmap",
+                    "${workspaceFolder}/src/fs/ufs",
+                    "${workspaceFolder}/src/hls_prefetch",
+                    "${workspaceFolder}/src/libenc-check",
+                    "${workspaceFolder}/src/mc",
+                    "${workspaceFolder}/src/nginx_h264_streaming",
+                    "${workspaceFolder}/src/overwrite",
+                    "${workspaceFolder}/src/repl/heap",
+                    "${workspaceFolder}/tools",
+                    "/usr/lib/gcc/x86_64-redhat-linux/7/include",
+                    "/usr/include/c++/7",
+                    "/usr/include/c++/7/x86_64-redhat-linux",
+                    "/usr/include/c++/7/backward",
+                    "/usr/local/include",
+                    "/usr/lib64/clang/5.0.1/include",
+                    "/usr/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                "${workspaceFolder}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "browse": {
+                "path": [
+                    "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 3
+}
