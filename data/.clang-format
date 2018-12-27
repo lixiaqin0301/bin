@@ -15,13 +15,13 @@ AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterDefinitionReturnType: TopLevel
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: false
 BinPackArguments: true
 BinPackParameters: true
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Custom
 BraceWrapping:   
   AfterClass:      false
   AfterControlStatement: false
@@ -45,12 +45,12 @@ BreakConstructorInitializers: BeforeColon
 BreakConstructorInitializersBeforeComma: true
 BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
-ColumnLimit:     120
+ColumnLimit:     1200
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ContinuationIndentWidth: 0
 Cpp11BracedListStyle: false
 FixNamespaceComments: true
 IncludeBlocks: Preserve
