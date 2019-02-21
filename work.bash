@@ -17,7 +17,7 @@ if ! killall -q -0 rdesktop; then
     mkdir /tmp/rdesktop
     echo "mkdir /tmp/rdesktop"
     cd /tmp/rdesktop || exit 1
-    setsid nohup rdesktop -a 32 -g 1366x680 -r disk:myshare=/tmp/rdesktop -u lixq -p "$(awk '/^xp/{print $5}' "$sh_dir"/../sbin/ha.txt)" "$(awk '/^xp/{print $3}' "$sh_dir"/../sbin/ha.txt)" &
+    setsid nohup rdesktop -a 32 -g 1366x730 -r disk:myshare=/tmp/rdesktop -u lixq -p "$(awk '/^xp/{print $5}' /mnt/lixq/vod/sbin/ha.txt)" "$(awk '/^xp/{print $3}' /mnt/lixq/vod/sbin/ha.txt)" &
 fi
 
 if ! killall -q -0 eclipse; then

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <style>
+        iframe {
+            width: 600px;
+            height: 600px;
+            margin-top: -250px;
+            margin-left: -100px;
+        }
+        </style>
+    </head>
+
+    <body>
+        <iframe id="a" frameborder="0">
+        </iframe>
+        <script>
+            var word = location.href.slice(location.href.indexOf('?a')+3);
+            document.getElementById('a').setAttribute('src', 'http://dict.youdao.com/search?q=' + word);
+        </script>
+    </body>
+</html>
