@@ -31,7 +31,7 @@ make install
 
 cd ~ || exit 1
 if [[ -d "$destdir/libtirpc-1.1.4" ]]; then
-    rm "$destdir/src/libtirpc"* -rf
+    #rm "$destdir/src/libtirpc"* -rf
     cd "$destdir" || exit 1
     ln -s libtirpc-1.1.4 libtirpc
     echo_info "build libtirpc success" >> "$destdir/src/install_from_src.log"
