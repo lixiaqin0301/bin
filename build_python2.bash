@@ -20,23 +20,23 @@ rm "$destdir/Python-2"* -rf
 rm "$destdir/src/Python-2"* -rf
 yum-builddep python -y
 cd "$destdir/src" || exit 1
-rm -f Python-2.7.15.tar.xz*
-until wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz; do
-    rm -f Python-2.7.15.tar.xz*
+rm -f Python-2.7.16.tar.xz*
+until wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz; do
+    rm -f Python-2.7.16.tar.xz*
 done
-xz -d Python-2.7.15.tar.xz
-tar -xf Python-2.7.15.tar
-mkdir "$destdir/src/Python-2.7.15/build"
-cd "$destdir/src/Python-2.7.15/build" || exit 1
+xz -d Python-2.7.16.tar.xz
+tar -xf Python-2.7.16.tar
+mkdir "$destdir/src/Python-2.7.16/build"
+cd "$destdir/src/Python-2.7.16/build" || exit 1
 export LD_RUN_PATH=$destdir/Python2/lib
-../configure "--prefix=$destdir/Python-2.7.15" --enable-shared
+../configure "--prefix=$destdir/Python-2.7.16" --enable-shared
 make
 make install
 cd ~ || exit 1
-if [[ -d "$destdir/Python-2.7.15" ]]; then
+if [[ -d "$destdir/Python-2.7.16" ]]; then
     rm "$destdir/src/Python-2"* -rf
     cd "$destdir" || exit 1
-    ln -s Python-2.7.15 Python2
+    ln -s Python-2.7.16 Python2
     cd "$destdir/src" || exit 1
     if [[ -f "$destdir/downloads/get-pip.py" ]]; then
         "$destdir/Python2/bin/python" "$destdir/downloads/get-pip.py"
