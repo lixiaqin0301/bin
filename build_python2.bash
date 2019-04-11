@@ -21,9 +21,13 @@ rm "$destdir/src/Python-2"* -rf
 yum-builddep python -y
 cd "$destdir/src" || exit 1
 rm -f Python-2.7.16.tar.xz*
-until wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz; do
-    rm -f Python-2.7.16.tar.xz*
-done
+if [[ -f "$sh_dir/downloads/Python-2.7.16.tar.xz" ]]; then
+    cp "$sh_dir/downloads/Python-2.7.16.tar.xz" .
+else
+    until wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz; do
+        rm -f Python-2.7.16.tar.xz*
+    done
+fi
 xz -d Python-2.7.16.tar.xz
 tar -xf Python-2.7.16.tar
 mkdir "$destdir/src/Python-2.7.16/build"
