@@ -14,7 +14,7 @@ function gen_sys_tags() {
         cd $include_dir || exit 1
         include_files=$(mktemp)
         find $include_dir -type f | tee "$include_files"
-        "$(which gtags)" -f "$include_files"
+        "$(command -v gtags)" -f "$include_files"
     done
     #[[ ! -d /root/.vim ]] && mkdir /root/.vim
     #[[ ! -d /home/lixq/.vim ]] && mkdir /home/lixq/.vim
@@ -33,28 +33,32 @@ fi
 export PATH="$PATH:$rootdir/Python3/bin:$rootdir/global/bin"
 yum install ctags -y
 
-if which pip3; then
-    "$(which pip3)" install pygments -y
+if command -v pip3; then
+    "$(command -v pip3)" install pygments -y
 fi
 
 rm "$destdir/global"* -rf
 rm "$destdir/src/global"* -rf
 cd "$destdir/src" || exit 1
-rm -f global-6.6.2.tar.gz*
-until wget http://mirrors.ustc.edu.cn/gnu/global/global-6.6.2.tar.gz; do
-    rm -f global-6.6.2.tar.gz*
-done
-tar -xf global-6.6.2.tar.gz
-mkdir "$destdir/src/global-6.6.2/build"
-cd "$destdir/src/global-6.6.2/build" || exit 1
-../configure --prefix=$destdir/global-6.6.2
+if [[ -f "$sh_dir/downloads/global-6.6.3.tar.gz" ]]; then
+    cp "$sh_dir/downloads/global-6.6.3.tar.gz" .
+else
+    rm -f global-6.6.3.tar.gz*
+    until wget http://mirrors.ustc.edu.cn/gnu/global/global-6.6.3.tar.gz; do
+        rm -f global-6.6.3.tar.gz*
+    done
+fi
+tar -xf global-6.6.3.tar.gz
+mkdir "$destdir/src/global-6.6.3/build"
+cd "$destdir/src/global-6.6.3/build" || exit 1
+../configure --prefix=$destdir/global-6.6.3
 make
 make install
 cd ~ || exit 1
-if [[ -d "$destdir/global-6.6.2" ]]; then
+if [[ -d "$destdir/global-6.6.3" ]]; then
     rm "$destdir/src/global"* -rf
     cd "$destdir" || exit 1
-    ln -s global-6.6.2 global
+    ln -s global-6.6.3 global
     gen_sys_tags
     echo_info "build global success" >> "$destdir/src/install_from_src.log"
 else

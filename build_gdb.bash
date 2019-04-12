@@ -20,13 +20,17 @@ fi
 rm "$destdir/gdb"* -rf
 rm "$destdir/src/gdb"* -rf
 cd "$destdir/src" || exit 1
-rm -f gdb-8.2.tar.gz*
-until wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-8.2.tar.gz; do
-    rm -f gdb-8.2.tar.gz*
-done
-tar -xf gdb-8.2.tar.gz
-mkdir "$destdir/src/gdb-8.2/build"
-cd "$destdir/src/gdb-8.2/build" || exit 1
+if [[ -f "$sh_dir/downloads/gdb-8.2.1.tar.gz" ]]; then
+    cp "$sh_dir/downloads/gdb-8.2.1.tar.gz" .
+else
+    rm -f gdb-8.2.1.tar.gz*
+    until wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-8.2.1.tar.gz; do
+        rm -f gdb-8.2.1.tar.gz*
+    done
+fi
+tar -xf gdb-8.2.1.tar.gz
+mkdir "$destdir/src/gdb-8.2.1/build"
+cd "$destdir/src/gdb-8.2.1/build" || exit 1
 if [[ -f "$rootdir/gcc/bin/gcc" ]]; then
     export CC="$rootdir/gcc/bin/gcc"
 fi
@@ -44,14 +48,14 @@ fi
 if [[ -f "$rootdir/Python2/bin/python" ]]; then
     export PATH="$rootdir/Python2/bin":$PATH
 fi
-../configure --prefix=$destdir/gdb-8.2
+../configure --prefix=$destdir/gdb-8.2.1
 make
 make install
 cd ~ || exit 1
-if [[ -d "$destdir/gdb-8.2" ]]; then
+if [[ -d "$destdir/gdb-8.2.1" ]]; then
     rm "$destdir/src/gdb"* -rf
     cd "$destdir" || exit 1
-    ln -s gdb-8.2 gdb
+    ln -s gdb-8.2.1 gdb
     echo_info "build gdb success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build gdb failed" >> "$destdir/src/install_from_src.log"

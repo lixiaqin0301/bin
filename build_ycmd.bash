@@ -15,7 +15,7 @@ cd "$sh_dir" || exit 1
 ./build_gcc.bash -r "$rootdir" -d "$rootdir"
 cd "$destdir" || exit 1
 if [[ -d "$sh_dir/downloads/YouCompleteMe" ]]; then
-    mv "$sh_dir/downloads/YouCompleteMe" "$destdir/"
+    cp -r "$sh_dir/downloads/YouCompleteMe" "$destdir/"
 else
     rm YouCompleteMe -rf
     until git clone https://github.com/Valloric/YouCompleteMe.git; do

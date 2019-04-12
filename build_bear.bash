@@ -15,7 +15,7 @@ rm "$destdir/Bear"* -rf
 rm "$destdir/src/Bear"* -rf
 cd "$destdir/src" || exit 1
 if [[ -d "$sh_dir/downloads/Bear" ]]; then
-    mv "$sh_dir/downloads/Bear" "$destdir/src/"
+    cp -r "$sh_dir/downloads/Bear" "$destdir/src/"
 else
     until git clone https://github.com/rizsotto/Bear.git; do
         rm -rf Bear

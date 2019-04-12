@@ -10,6 +10,10 @@ cd "$sh_dir"
 [[ -d "$destdir/FlameGraph" ]] && exit 0
 
 cd "$destdir" || exit 1
-until git clone https://github.com/brendangregg/FlameGraph.git; do
-    rm -rf FlameGraph*
-done
+if [[ -d "$sh_dir/downloads/FlameGraph" ]]; then
+    cp -r "$sh_dir/downloads/FlameGraph" "$destdir/"
+else
+    until git clone https://github.com/brendangregg/FlameGraph.git; do
+        rm -rf FlameGraph*
+    done
+fi
