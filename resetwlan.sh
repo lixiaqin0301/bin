@@ -1,7 +1,7 @@
 #!/bin/bash
 (
 flock -n 9 || exit 1
-if ping -W 5 -c 1 www.baidu.com; then
+if ping -c 1 www.baidu.com; then
     echo "$(date +'%Y-%m-%d %H:%M:%S') ping www.baiud.com succeed" >> /tmp/resetwlan.log
     exit 0
 fi
