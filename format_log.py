@@ -11,6 +11,8 @@ for line in fin:
     for c in line.split():
         if len(ls) == 1 and ls[0] == '#Fields:':
             ls[0] = ls[0] + ' ' + c
+        elif len(ls) == 1 and c == '1/1':
+            ls[0] = '#Fields:'
         elif inquote or insquarebrackets > 0:
             ls[-1] = ls[-1] + ' ' + c
         else:
