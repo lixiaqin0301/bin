@@ -22,16 +22,16 @@ rm "$destdir/src/boost"* -rf
 yum-builddep boost -y
 yum remove cmake -y
 cd "$destdir/src" || exit 1
-if [[ -f "$sh_dir/downloads/boost_1_70_0.tar.gz" ]]; then
-    tar -xf "$sh_dir/downloads/boost_1_70_0.tar.gz"
+if [[ -f "$sh_dir/downloads/boost_1_71_0.tar.gz" ]]; then
+    tar -xf "$sh_dir/downloads/boost_1_71_0.tar.gz"
 else
-    rm -rf boost_1_70_0.tar.gz*
-    until wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.gz --no-check-certificate; do
-        rm -rf boost_1_70_0.tar.gz*
+    rm -rf boost_1_71_0.tar.gz*
+    until wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_71_0.tar.gz --no-check-certificate; do
+        rm -rf boost_1_71_0.tar.gz*
     done
-    tar -xf boost_1_70_0.tar.gz
+    tar -xf boost_1_71_0.tar.gz
 fi
-cd "$destdir/src/boost_1_70_0" || exit 1
+cd "$destdir/src/boost_1_71_0" || exit 1
 if [[ -f "$rootdir/gcc/bin/gcc" ]]; then
     export CC="$rootdir/gcc/bin/gcc"
 fi
@@ -51,14 +51,14 @@ if [[ -f "$rootdir/Python2/bin/python" ]]; then
 else
     pythonexcuable="$(which python)"
 fi
-./bootstrap.sh --with-python="$pythonexcuable" --prefix="$destdir/boost_1_70_0"
+./bootstrap.sh --with-python="$pythonexcuable" --prefix="$destdir/boost_1_71_0"
 ./b2
 ./b2 install
 cd ~ || exit 1
-if [[ -d "$destdir/boost_1_70_0" ]]; then
+if [[ -d "$destdir/boost_1_71_0" ]]; then
     rm "$destdir/src/boost"* -rf
     cd "$destdir" || exit 1
-    ln -s boost_1_70_0 boost
+    ln -s boost_1_71_0 boost
     echo_info "build boost success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build boost failed" >> "$destdir/src/install_from_src.log"
