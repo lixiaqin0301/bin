@@ -10,8 +10,6 @@ cd "$sh_dir"
 [[ -d "$destdir/boost" ]] && exit 0
 
 if [[ $version -ge 7 ]]; then
-    $dnfyum install -y boost "boost-*"
-    echo_info "$dnfyum install boost success" >> "$destdir/src/install_from_src.log"
     exit 0
 fi
 
