@@ -30,178 +30,32 @@ $dnfyum install swig libedit-devel -y
 
 # LLVM
 cd "$destdir/src" || exit 1
-if [[ -f "$sh_dir/downloads/llvm-8.0.1.src.tar" ]]; then
-    tar -xf "$sh_dir/downloads/llvm-8.0.1.src.tar"
+if [[ -f "$sh_dir/downloads/llvm-9.0.0.src.tar" ]]; then
+    tar -xf "$sh_dir/downloads/llvm-9.0.0.src.tar"
 else
-    rm -f llvm-8.0.1.src.tar.xz*
-    until wget http://releases.llvm.org/8.0.1/llvm-8.0.1.src.tar.xz; do
-        rm -f llvm-8.0.1.src.tar.xz*
+    rm -f llvm-9.0.0.src.tar.xz*
+    until wget http://releases.llvm.org/9.0.0/llvm-9.0.0.src.tar.xz; do
+        rm -f llvm-9.0.0.src.tar.xz*
     done
-    xz -d llvm-8.0.1.src.tar.xz
-    tar -xf llvm-8.0.1.src.tar
-    rm llvm-8.0.1.src.tar
+    xz -d llvm-9.0.0.src.tar.xz
+    tar -xf llvm-9.0.0.src.tar
+    rm llvm-9.0.0.src.tar
 fi
-mv llvm-8.0.1.src llvm
+mv llvm-9.0.0.src llvm
 # Clang
 cd "$destdir/src/llvm/tools" || exit 1
-if [[ -f "$sh_dir/downloads/cfe-8.0.1.src.tar" ]]; then
-    tar -xf "$sh_dir/downloads/cfe-8.0.1.src.tar"
+if [[ -f "$sh_dir/downloads/cfe-9.0.0.src.tar" ]]; then
+    tar -xf "$sh_dir/downloads/cfe-9.0.0.src.tar"
 else
-    rm -f cfe-8.0.1.src.tar.xz*
-    until wget http://releases.llvm.org/8.0.1/cfe-8.0.1.src.tar.xz; do
-        rm -f cfe-8.0.1.src.tar*
+    rm -f cfe-9.0.0.src.tar.xz*
+    until wget http://releases.llvm.org/9.0.0/cfe-9.0.0.src.tar.xz; do
+        rm -f cfe-9.0.0.src.tar*
     done
-    xz -d cfe-8.0.1.src.tar.xz
-    tar -xf cfe-8.0.1.src.tar
-    rm cfe-8.0.1.src.tar
+    xz -d cfe-9.0.0.src.tar.xz
+    tar -xf cfe-9.0.0.src.tar
+    rm cfe-9.0.0.src.tar
 fi
-mv cfe-8.0.1.src clang
-if [[ "$small" != true ]]; then
-    # extra Clang tools (optional)
-    cd "$destdir/src/llvm/tools/clang/tools" || exit 1
-    if [[ -f "$sh_dir/downloads/clang-tools-extra-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/clang-tools-extra-8.0.1.src.tar"
-    else
-        rm -f clang-tools-extra-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/clang-tools-extra-8.0.1.src.tar.xz; do
-            rm -f clang-tools-extra-8.0.1.src.tar.xz*
-        done
-        xz -d clang-tools-extra-8.0.1.src.tar.xz
-        tar -xf clang-tools-extra-8.0.1.src.tar
-        rm clang-tools-extra-8.0.1.src.tar
-    fi
-    mv clang-tools-extra-8.0.1.src extra
-    # Compiler-RT (optional)
-    if [[ $version -ge 6 ]]; then
-        cd "$destdir/src/llvm/projects" || exit 1
-        if [[ -f "$sh_dir/downloads/compiler-rt-8.0.1.src.tar" ]]; then
-            tar -xf "$sh_dir/downloads/compiler-rt-8.0.1.src.tar"
-        else
-            rm -f compiler-rt-8.0.1.src.tar.xz*
-            until wget http://releases.llvm.org/8.0.1/compiler-rt-8.0.1.src.tar.xz; do
-                rm -f compiler-rt-8.0.1.src.tar.xz*
-            done
-            xz -d compiler-rt-8.0.1.src.tar.xz
-            tar -xf compiler-rt-8.0.1.src.tar
-            rm compiler-rt-8.0.1.src.tar
-        fi
-        mv compiler-rt-8.0.1.src compiler-rt
-    fi
-    # libcxx: (only required to build and run Compiler-RT tests on OS X, optional otherwise) 
-    cd "$destdir/src/llvm/projects" || exit 1
-    if [[ -f "$sh_dir/downloads/libcxx-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/libcxx-8.0.1.src.tar"
-    else
-        rm -f libcxx-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/libcxx-8.0.1.src.tar.xz; do
-            rm -f libcxx-8.0.1.src.tar.xz*
-        done
-        xz -d libcxx-8.0.1.src.tar.xz
-        tar -xf libcxx-8.0.1.src.tar
-        rm libcxx-8.0.1.src.tar
-    fi
-    mv libcxx-8.0.1.src libcxx
-    # lldb
-    if [[ $version -ge 6 ]]; then
-        cd "$destdir/src/llvm/tools" || exit 1
-        if [[ -f "$sh_dir/downloads/lldb-8.0.1.src.tar" ]]; then
-            tar -xf "$sh_dir/downloads/lldb-8.0.1.src.tar"
-        else
-            rm -f lldb-8.0.1.src.tar.xz*
-            until wget http://releases.llvm.org/8.0.1/lldb-8.0.1.src.tar.xz; do
-                rm -f lldb-8.0.1.src.tar.xz*
-            done
-            xz -d lldb-8.0.1.src.tar.xz
-            tar -xf lldb-8.0.1.src.tar
-            rm lldb-8.0.1.src.tar
-        fi
-        mv lldb-8.0.1.src lldb
-    fi
-    # libcxxabi
-    cd "$destdir/src/llvm/projects" || exit 1
-    if [[ -f "$sh_dir/downloads/libcxxabi-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/libcxxabi-8.0.1.src.tar"
-    else
-        rm -f libcxxabi-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/libcxxabi-8.0.1.src.tar.xz; do
-            rm -f libcxxabi-8.0.1.src.tar.xz*
-        done
-        xz -d libcxxabi-8.0.1.src.tar.xz
-        tar -xf libcxxabi-8.0.1.src.tar
-        rm libcxxabi-8.0.1.src.tar
-    fi
-    mv libcxxabi-8.0.1.src libcxxabi
-    # libunwind
-    cd "$destdir/src/llvm/projects" || exit 1
-    if [[ -f "$sh_dir/downloads/libunwind-8.0.1.src.tar" ]]; then
-        tar -xf "$destdir/downloads/libunwind-8.0.1.src.tar"
-    else
-        rm -f libunwind-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/libunwind-8.0.1.src.tar.xz; do
-            rm -f libunwind-8.0.1.src.tar.xz*
-        done
-        xz -d libunwind-8.0.1.src.tar.xz
-        tar -xf libunwind-8.0.1.src.tar
-        rm libunwind-8.0.1.src.tar
-    fi
-    mv libunwind-8.0.1.src libunwind
-    # lld
-    cd "$destdir/src/llvm/tools" || exit 1
-    if [[ -f "$sh_dir/downloads/lld-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/lld-8.0.1.src.tar"
-    else
-        rm -f lld-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/lld-8.0.1.src.tar.xz; do
-            rm -f lld-8.0.1.src.tar.xz*
-        done
-        xz -d lld-8.0.1.src.tar.xz
-        tar -xf lld-8.0.1.src.tar
-        rm lld-8.0.1.src.tar
-    fi
-    mv lld-8.0.1.src lld
-    # openmp
-    cd "$destdir/src/llvm/projects" || exit 1
-    if [[ -f "$sh_dir/downloads/openmp-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/openmp-8.0.1.src.tar"
-    else
-        rm -f openmp-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/openmp-8.0.1.src.tar.xz; do
-            rm -f openmp-8.0.1.src.tar.xz*
-        done
-        xz -d openmp-8.0.1.src.tar.xz
-        tar -xf openmp-8.0.1.src.tar
-        rm openmp-8.0.1.src.tar
-    fi
-    mv openmp-8.0.1.src openmp
-    # polly
-    cd "$destdir/src/llvm/tools" || exit 1
-    if [[ -f "$sh_dir/downloads/polly-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/polly-8.0.1.src.tar"
-    else
-        rm -f polly-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/polly-8.0.1.src.tar.xz; do
-            rm -f polly-8.0.1.src.tar.xz*
-        done
-        xz -d polly-8.0.1.src.tar.xz
-        tar -xf polly-8.0.1.src.tar
-        rm polly-8.0.1.src.tar
-    fi
-    mv polly-8.0.1.src polly
-    # test-suite
-    cd "$destdir/src/llvm/projects" || exit 1
-    if [[ -f "$sh_dir/downloads/test-suite-8.0.1.src.tar" ]]; then
-        tar -xf "$sh_dir/downloads/test-suite-8.0.1.src.tar"
-    else
-        rm -f test-suite-8.0.1.src.tar.xz*
-        until wget http://releases.llvm.org/8.0.1/test-suite-8.0.1.src.tar.xz; do
-            rm -f test-suite-8.0.1.src.tar.xz*
-        done
-        xz -d test-suite-8.0.1.src.tar.xz
-        tar -xf test-suite-8.0.1.src.tar
-        rm test-suite-8.0.1.src.tar
-    fi
-    mv test-suite-8.0.1.src test-suite
-fi
+mv cfe-9.0.0.src clang
 cd "$destdir/src/llvm" || exit 1
 mkdir "$destdir/src/llvm/build"
 cd "$rootdir/src/llvm/build" || exit 1
@@ -236,8 +90,8 @@ else
     pythonexcuable=$(command -v python)
 fi
 
-echo "CPP=$cpppath $cmakepath -DCMAKE_C_COMPILER=$ccpath -DCMAKE_CXX_COMPILER=$cxxpath -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$destdir/llvm-8.0.1 -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS=$cxxlinkflags -DPYTHON_EXECUTABLE=$pythonexcuable .." >> "$destdir/src/install_from_src.log"
-CPP="$cpppath" "$cmakepath" -DCMAKE_C_COMPILER="$ccpath" -DCMAKE_CXX_COMPILER="$cxxpath" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX="$destdir/llvm-8.0.1" -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS="$cxxlinkflags" -DPYTHON_EXECUTABLE="$pythonexcuable" ..
+echo "CPP=$cpppath $cmakepath -DCMAKE_C_COMPILER=$ccpath -DCMAKE_CXX_COMPILER=$cxxpath -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$destdir/llvm-9.0.0 -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS=$cxxlinkflags -DPYTHON_EXECUTABLE=$pythonexcuable .." >> "$destdir/src/install_from_src.log"
+CPP="$cpppath" "$cmakepath" -DCMAKE_C_COMPILER="$ccpath" -DCMAKE_CXX_COMPILER="$cxxpath" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX="$destdir/llvm-9.0.0" -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS="$cxxlinkflags" -DPYTHON_EXECUTABLE="$pythonexcuable" ..
 echo "make" >> "$destdir/src/install_from_src.log"
 make 2>&1 | tee -a "$destdir/src/install_from_src.log"
 if [[ $version -eq 7 ]]; then
@@ -245,12 +99,12 @@ if [[ $version -eq 7 ]]; then
 fi
 make install 2>&1 | tee -a "$destdir/src/install_from_src.log"
 cd ~ || exit 1
-if [[ -d "$destdir/llvm-8.0.1" ]]; then
+if [[ -d "$destdir/llvm-9.0.0" ]]; then
     rm "$destdir/src/llvm"* -rf
     rm "$destdir/src/clang"* -rf
     cd "$destdir" || exit 1
-    ln -s llvm-8.0.1 llvm
-    ln -s llvm-8.0.1 clang
+    ln -s llvm-9.0.0 llvm
+    ln -s llvm-9.0.0 clang
     echo_info "build clang success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build clang failed" >> "$destdir/src/install_from_src.log"
