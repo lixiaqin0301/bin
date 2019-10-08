@@ -10,8 +10,6 @@ cd "$sh_dir" || exit 1
 [[ -d "$destdir/clang" ]] && exit 0
 
 if [[ $version -ge 20 ]]; then
-    $dnfyum install -y clang "clang-*" llvm "llvm-*" compiler-rt
-    echo_info "$dnfyum install clang success" >> "$destdir/src/install_from_src.log"
     exit 0
 fi
 
