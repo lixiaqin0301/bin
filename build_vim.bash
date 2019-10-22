@@ -32,8 +32,8 @@ else
     tar -xf vim-8.1.tar.bz2
 fi
 cd "$destdir/src/vim81" || exit 1
-if [[ -d "$rootdir/Python3/lib/python3.8/config-3.8m-x86_64-linux-gnu" ]]; then
-    python3_config_dir="$rootdir/Python3/lib/python3.8/config-3.8m-x86_64-linux-gnu"
+if [[ -d "$rootdir/Python3/lib/python3.8/config-3.8-x86_64-linux-gnu" ]]; then
+    python3_config_dir="$rootdir/Python3/lib/python3.8/config-3.8-x86_64-linux-gnu"
 else
     python3_config_dir=/usr/lib64/python3.8/config-3.8m-x86_64-linux-gnu
 fi
