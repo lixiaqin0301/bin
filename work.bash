@@ -20,10 +20,10 @@ if ! killall -q -0 rdesktop; then
     setsid nohup rdesktop -a 32 -g 1366x705 -r disk:myshare=/tmp/rdesktop -u "$(awk '/^win/{print $2}' "$sh_dir/../sbin/ha.txt")" -p "$(awk '/^win/{print $5}' "$sh_dir/../sbin/ha.txt")" "$(awk '/^win/{print $3}' "$sh_dir/../sbin/ha.txt")" &
 fi
 
-if ! killall -q -0 eclipse; then
-    rm /tmp/eclipse -rfv
-    mkdir /tmp/eclipse
-    echo "mkdir /tmp/eclipse"
-    cd /tmp/eclipse || exit 1
-    setsid nohup eclipse &
-fi
+#if ! killall -q -0 eclipse; then
+#    rm /tmp/eclipse -rfv
+#    mkdir /tmp/eclipse
+#    echo "mkdir /tmp/eclipse"
+#    cd /tmp/eclipse || exit 1
+#    setsid nohup eclipse &
+#fi
