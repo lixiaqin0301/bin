@@ -21,27 +21,27 @@ rm "$destdir/src/Python-3"* -rf
 yum-builddep python -y
 $dnfyum install openssl openssl-devel libffi libffi-devel -y
 cd "$destdir/src" || exit 1
-if [[ -f "$sh_dir/downloads/Python-3.8.0.tar" ]]; then
-    tar -xf "$sh_dir/downloads/Python-3.8.0.tar"
+if [[ -f "$sh_dir/downloads/Python-3.8.1.tar" ]]; then
+    tar -xf "$sh_dir/downloads/Python-3.8.1.tar"
 else
-    rm -f Python-3.8.0.tar.xz*
-    until wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz; do
-        rm -f Python-3.8.0.tar.xz*
+    rm -f Python-3.8.1.tar.xz*
+    until wget https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tar.xz; do
+        rm -f Python-3.8.1.tar.xz*
     done
-    xz -d Python-3.8.0.tar.xz
-    tar -xf Python-3.8.0.tar
+    xz -d Python-3.8.1.tar.xz
+    tar -xf Python-3.8.1.tar
 fi
-mkdir "$destdir/src/Python-3.8.0/build"
-cd "$destdir/src/Python-3.8.0/build" || exit 1
+mkdir "$destdir/src/Python-3.8.1/build"
+cd "$destdir/src/Python-3.8.1/build" || exit 1
 export LD_RUN_PATH=$destdir/Python3/lib
-../configure --prefix=$destdir/Python-3.8.0 --enable-shared
+../configure --prefix=$destdir/Python-3.8.1 --enable-shared
 make
 make install
 cd ~ || exit 1
-if [[ -d "$destdir/Python-3.8.0" ]]; then
+if [[ -d "$destdir/Python-3.8.1" ]]; then
     rm "$destdir/src/Python-3"* -rf
     cd "$destdir" || exit 1
-    ln -s Python-3.8.0 Python3
+    ln -s Python-3.8.1 Python3
     echo_info "build Python3 success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build Python3 failed" >> "$destdir/src/install_from_src.log"
