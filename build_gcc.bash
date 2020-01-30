@@ -18,6 +18,7 @@ fi
 rm "$destdir/gcc"* -rf
 rm "$destdir/src/gcc"* -rf
 yum-builddep gcc -y
+yum install texinfo -y
 cd "$destdir/src" || exit 1
 if [[ -f "$sh_dir/downloads/gcc-9.2.0.tar.gz" ]]; then
     tar -xf "$sh_dir/downloads/gcc-9.2.0.tar.gz"
