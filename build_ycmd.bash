@@ -52,12 +52,12 @@ export PATH="${PATH%':'}"
 export LIBRARY_PATH="${LIBRARY_PATH%':'}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%':'}"
 export LD_RUN_PATH="${LD_RUN_PATH%':'}"
-if [[ $version -ge 20 ]]; then
-    $dnfyum install python3-devel mono-devel golang cargo nodejs -y
-    python3 install.py --all --system-libclang
-else
+#if [[ $version -ge 20 ]]; then
+#    $dnfyum install python3-devel mono-devel golang cargo nodejs -y
+#    python3 install.py --all --system-libclang
+#else
     python3 install.py --clang-completer --system-libclang
-fi
+#fi
 
 if [[ -d "$destdir/YouCompleteMe" ]]; then
     echo_info "build YouCompleteMe success" >> "$destdir/src/install_from_src.log"
