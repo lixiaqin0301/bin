@@ -7,6 +7,7 @@ cd "$sh_dir" || exit 1
 [[ -d "$destdir/Bear" ]] && exit 0
 
 ./build_cmake.bash -r "$rootdir" -d "$rootdir"
+
 rm "$destdir/Bear"* -rf
 rm "$destdir/src/Bear"* -rf
 cd "$destdir/src" || exit 1

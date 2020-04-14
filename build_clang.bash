@@ -1,30 +1,25 @@
 #!/bin/bash
-PS4='+{$LINENO:${FUNCNAME[0]}} '
-sh_name="$(basename "${BASH_SOURCE[0]}")"
 sh_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1; pwd)"
-export sh_full_path="$sh_dir/$sh_name"
 cd "$sh_dir" || exit 1
 
 . ./build_pub_fun.bash
 [[ "$force" == "true" ]] && rm "$destdir/clang"* -rf
 [[ -d "$destdir/clang" ]] && exit 0
 
-if [[ $version -ge 20 ]]; then
+if [[ $version -ge 30 ]]; then
     exit 0
 fi
 
 ./build_gcc.bash -r "$rootdir" -d "$rootdir"
 ./build_cmake.bash -r "$rootdir" -d "$rootdir"
-./build_python2.bash -r "$rootdir" -d "$rootdir"
 
 rm "$destdir/clang"* -rf
 rm "$destdir/src/clang"* -rf
 rm "$destdir/llvm"* -rf
 rm "$destdir/src/llvm"* -rf
 
-$dnfyum install swig libedit-devel -y
-[[ $version -eq 5 ]] && yum install swig libedit-devel libxml2-devel ncurses-devel -y
-[[ $version -ge 6 ]] && yum-builddep clang -y
+yum install swig libedit-devel -y
+yum-builddep clang -y
 
 # LLVM
 cd "$destdir/src" || exit 1
@@ -82,19 +77,12 @@ if [[ -d "$rootdir/gcc/lib64" ]]; then
 else
     cxxlinkflags=""
 fi
-if [[ -f "$rootdir/Python2/bin/python" ]]; then
-    pythonexcuable=$rootdir/Python2/bin/python
-else
-    pythonexcuable=$(command -v python)
-fi
 
-echo "CPP=$cpppath $cmakepath -DCMAKE_C_COMPILER=$ccpath -DCMAKE_CXX_COMPILER=$cxxpath -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$destdir/llvm-10.0.0 -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS=$cxxlinkflags -DPYTHON_EXECUTABLE=$pythonexcuable .." >> "$destdir/src/install_from_src.log"
-CPP="$cpppath" "$cmakepath" -DCMAKE_C_COMPILER="$ccpath" -DCMAKE_CXX_COMPILER="$cxxpath" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX="$destdir/llvm-10.0.0" -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS="$cxxlinkflags" -DPYTHON_EXECUTABLE="$pythonexcuable" ..
+echo "CPP=$cpppath $cmakepath -DCMAKE_C_COMPILER=$ccpath -DCMAKE_CXX_COMPILER=$cxxpath -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$destdir/llvm-10.0.0 -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS=$cxxlinkflags .." >> "$destdir/src/install_from_src.log"
+CPP="$cpppath" "$cmakepath" -DCMAKE_C_COMPILER="$ccpath" -DCMAKE_CXX_COMPILER="$cxxpath" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX="$destdir/llvm-10.0.0" -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_LLVM_DYLIB=1 -DLLVM_OPTIMIZED_TABLEGEN=1 -DCMAKE_CXX_LINK_FLAGS="$cxxlinkflags" ..
 echo "make" >> "$destdir/src/install_from_src.log"
 make 2>&1 | tee -a "$destdir/src/install_from_src.log"
-if [[ $version -eq 7 ]]; then
-    sed -i 's/lib\/python2.7/lib64\/python2.7/g' tools/lldb/scripts/cmake_install.cmake
-fi
+sed -i 's,lib/python2.7,lib64/python2.7,g' tools/lldb/scripts/cmake_install.cmake
 make install 2>&1 | tee -a "$destdir/src/install_from_src.log"
 cd ~ || exit 1
 if [[ -d "$destdir/llvm-10.0.0" ]]; then
@@ -107,5 +95,3 @@ if [[ -d "$destdir/llvm-10.0.0" ]]; then
 else
     echo_info "build clang failed" >> "$destdir/src/install_from_src.log"
 fi
-
-exit 0

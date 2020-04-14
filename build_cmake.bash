@@ -1,17 +1,12 @@
 #!/bin/bash
-PS4='+{$LINENO:${FUNCNAME[0]}} '
-sh_name="$(basename "${BASH_SOURCE[0]}")"
 sh_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1; pwd)"
-export sh_full_path="$sh_dir/$sh_name"
 cd "$sh_dir" || exit 1
 
 . ./build_pub_fun.bash
 [[ "$force" == "true" ]] && rm "$destdir/cmake"* -rf
 [[ -d "$destdir/cmake" ]] && exit 0
 
-if [[ $version -ge 20 ]]; then
-    $dnfyum install -y cmake
-    echo_info "$dnfyum install cmake success" >> "$destdir/src/install_from_src.log"
+if [[ $version -ge 30 ]]; then
     exit 0
 fi
 
@@ -50,7 +45,7 @@ fi
 gmake
 gmake install
 cd ~ || exit 1
-$dnfyum -y remove emacs emacs-common
+yum -y remove emacs emacs-common
 if [[ -d "$destdir/cmake-3.13.4" ]]; then
     rm "$destdir/src/cmake"* -rf
     cd "$destdir" || exit 1

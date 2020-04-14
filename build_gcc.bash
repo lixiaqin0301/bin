@@ -9,9 +9,7 @@ cd "$sh_dir" || exit 1
 [[ "$force" == "true" ]] && rm "$destdir/gcc"* -rf
 [[ -d "$destdir/gcc" ]] && exit 0
 
-if [[ $version -ge 20 ]]; then
-    $dnfyum install gcc
-    echo_info "$dnfyum install gcc success" >> "$destdir/src/install_from_src.log"
+if [[ $version -ge 30 ]]; then
     exit 0
 fi
 
