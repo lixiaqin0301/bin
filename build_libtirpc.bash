@@ -1,15 +1,12 @@
 #!/bin/bash
-PS4='+{$LINENO:${FUNCNAME[0]}} '
-sh_name="$(basename "${BASH_SOURCE[0]}")"
 sh_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1; pwd)"
-export sh_full_path="$sh_dir/$sh_name"
 cd "$sh_dir" || exit 1
 
 . ./build_pub_fun.bash
 [[ "$force" == "true" ]] && rm "$destdir/libtirpc"* -rf
 [[ -d "$destdir/libtirpc" ]] && exit 0
 
-$dnfyum install krb5-devel -y
+dnf install krb5-devel -y
 rm "$destdir/libtirpc"* -rf
 rm "$destdir/src/libtirpc"* -rf
 mkdir -p "$destdir/src"

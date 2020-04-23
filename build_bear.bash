@@ -11,24 +11,28 @@ cd "$sh_dir" || exit 1
 rm "$destdir/Bear"* -rf
 rm "$destdir/src/Bear"* -rf
 cd "$destdir/src" || exit 1
-if [[ -d "$sh_dir/downloads/Bear" ]]; then
-    cp -r "$sh_dir/downloads/Bear" "$destdir/src/"
+if [[ -f "$sh_dir/downloads/Bear-2.4.3.tar.gz" ]]; then
+    cp "$sh_dir/downloads/Bear-2.4.3.tar.gz" .
 else
-    until git clone https://github.com/rizsotto/Bear.git; do
-        rm -rf Bear
+    rm -rf Bear-2.4.3.tar.gz*
+    until wget https://github.com/rizsotto/Bear/archive/v2.4.3.tar.gz -O Bear-2.4.3.tar.gz; do
+        rm -rf Bear-2.4.3.tar.gz*
     done
 fi
-mkdir "$destdir/src/Bear/build"
-cd "$destdir/src/Bear/build" || exit 1
+tar -xf Bear-2.4.3.tar.gz
+mkdir "$destdir/src/Bear-2.4.3/build"
+cd "$destdir/src/Bear-2.4.3/build" || exit 1
 if [[ -d "$rootdir/cmake/bin" ]]; then
     export PATH="$rootdir/cmake/bin:$PATH"
 fi
-cmake -DCMAKE_INSTALL_PREFIX="$destdir/Bear" ..
+cmake -DCMAKE_INSTALL_PREFIX="$destdir/Bear-2.4.3" ..
 make
 make install
 cd ~ || exit 1
-if [[ -d "$destdir/Bear" ]]; then
+if [[ -d "$destdir/Bear-2.4.3" ]]; then
     rm "$destdir/src/Bear"* -rf
+    cd "$destdir" || exit 1
+    ln -s Bear-2.4.3 Bear
     echo_info "build Bear success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build Bear failed" >> "$destdir/src/install_from_src.log"
