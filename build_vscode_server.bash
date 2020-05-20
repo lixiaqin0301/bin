@@ -1,6 +1,6 @@
 #!/bin/bash
-version=1.45.0
-commit=d69a79b73808559a91206d73d7717ff5f798f23c
+version=1.45.1
+commit=5763d909d5f12fe19f215cbfdd29a91c0fa9208a
 
 if [[ ! -f "vscode-server-${version}.linux-x64.tar.gz" ]]; then
     until wget "https://update.code.visualstudio.com/commit:${commit}/server-linux-x64/stable" -O "vscode-server-${version}.linux-x64.tar.gz"; do
