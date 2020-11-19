@@ -13,25 +13,25 @@ fi
 rm "$destdir/git"* -rf
 rm "$destdir/src/git"* -rf
 cd "$destdir/src" || exit 1
-if [[ -f "$sh_dir/downloads/git-2.27.0.tar.gz" ]]; then
-    cp "$sh_dir/downloads/git-2.27.0.tar.gz" .
+if [[ -f "$sh_dir/downloads/git-2.29.2.tar.gz" ]]; then
+    cp "$sh_dir/downloads/git-2.29.2.tar.gz" .
 else
-    rm -f git-2.27.0.tar.gz*
-    until wget https://github.com/git/git/archive/v2.27.0.tar.gz -O git-2.27.0.tar.gz; do
-        rm -f git-2.27.0.tar.gz*
+    rm -f git-2.29.2.tar.gz*
+    until wget https://github.com/git/git/archive/v2.29.2.tar.gz -O git-2.29.2.tar.gz; do
+        rm -f git-2.29.2.tar.gz*
     done
 fi
-tar -xf git-2.27.0.tar.gz
-cd "$destdir/src/git-2.27.0" || exit 1
+tar -xf git-2.29.2.tar.gz
+cd "$destdir/src/git-2.29.2" || exit 1
 make configure
-./configure --prefix=$destdir/git-2.27.0
+./configure --prefix=$destdir/git-2.29.2
 make all doc
 make install install-doc install-html
 cd ~ || exit 1
-if [[ -d "$destdir/git-2.27.0" ]]; then
+if [[ -d "$destdir/git-2.29.2" ]]; then
     rm "$destdir/src/git"* -rf
     cd "$destdir" || exit 1
-    ln -s git-2.27.0 git
+    ln -s git-2.29.2 git
     echo_info "build git success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build git failed" >> "$destdir/src/install_from_src.log"
