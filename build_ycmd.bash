@@ -4,28 +4,28 @@ cd "$sh_dir" || exit 1
 
 . ./build_pub_fun.bash
 [[ "$force" == "true" ]] && rm "$destdir/YouCompleteMe"* -rf
-[[ -d "$destdir/YouCompleteMe" ]] && exit 0
+#[[ -d "$destdir/YouCompleteMe" ]] && exit 0
 
 ./build_clang.bash -r "$rootdir" -d "$rootdir"
-./build_cmake.bash -r "$rootdir" -d "$rootdir"
 ./build_gcc.bash -r "$rootdir" -d "$rootdir"
 
-$dnfyum install python3-devel
+$dnfyum install python3-devel -y
 
 cd "$destdir" || exit 1
-if [[ -d "$sh_dir/downloads/YouCompleteMe" ]]; then
-    cp -r "$sh_dir/downloads/YouCompleteMe" "$destdir/"
-else
-    rm YouCompleteMe -rf
-    until git clone https://github.com/Valloric/YouCompleteMe.git; do
+if [[ ! -d "$destdir/YouCompleteMe" ]]; then
+    if [[ -d "$sh_dir/downloads/YouCompleteMe" ]]; then
+        cp -r "$sh_dir/downloads/YouCompleteMe" "$destdir/"
+    else
         rm YouCompleteMe -rf
-    done
-    cd "$destdir/YouCompleteMe" || exit 1
-    until git submodule update --init --recursive; do
-        sleep 1
-    done
+        until git clone https://github.com/Valloric/YouCompleteMe.git; do
+            rm YouCompleteMe -rf
+        done
+    fi
 fi
 cd "$destdir/YouCompleteMe" || exit 1
+until git submodule update --init --recursive; do
+    sleep 1
+done
 for path in "$rootdir/clang/bin" "$rootdir/cmake/bin" "$rootdir/gcc/bin"; do
     if [[ -d "$path" ]]; then
         PATH="$path:$PATH"
