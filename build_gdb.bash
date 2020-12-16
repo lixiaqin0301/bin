@@ -11,17 +11,17 @@ rm "$destdir/gdb"* -rf
 rm "$destdir/src/gdb"* -rf
 cd "$destdir/src" || exit 1
 
-if [[ -f "$sh_dir/downloads/gdb-10.1.tar.gz" ]]; then
-    cp "$sh_dir/downloads/gdb-10.1.tar.gz" .
+if [[ -f "$sh_dir/downloads/gdb-9.2.tar.gz" ]]; then
+    cp "$sh_dir/downloads/gdb-9.2.tar.gz" .
 else
-    rm -f gdb-10.1.tar.gz*
-    until wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-10.1.tar.gz; do
-        rm -f gdb-10.1.tar.gz*
+    rm -f gdb-9.2.tar.gz*
+    until wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-9.2.tar.gz; do
+        rm -f gdb-9.2.tar.gz*
     done
 fi
-tar -xf gdb-10.1.tar.gz
-mkdir "$destdir/src/gdb-10.1/build"
-cd "$destdir/src/gdb-10.1/build" || exit 1
+tar -xf gdb-9.2.tar.gz
+mkdir "$destdir/src/gdb-9.2/build"
+cd "$destdir/src/gdb-9.2/build" || exit 1
 if [[ -f "$rootdir/gcc/bin/gcc" ]]; then
     export CC="$rootdir/gcc/bin/gcc"
 fi
@@ -36,14 +36,14 @@ if [[ -d "$rootdir/gcc/lib64" ]]; then
     export LD_LIBRARY_PATH="$rootdir/gcc/lib64"
     export LD_RUN_PATH="$rootdir/gcc/lib64"
 fi
-../configure --prefix=$destdir/gdb-10.1 2>&1 | tee -a "$destdir/src/install_from_src.log"
+../configure --prefix=$destdir/gdb-9.2 2>&1 | tee -a "$destdir/src/install_from_src.log"
 make 2>&1 | tee -a "$destdir/src/install_from_src.log"
 make install 2>&1 | tee -a "$destdir/src/install_from_src.log"
 cd ~ || exit 1
-if [[ -d "$destdir/gdb-10.1" ]]; then
+if [[ -d "$destdir/gdb-9.2" ]]; then
     rm "$destdir/src/gdb"* -rf
     cd "$destdir" || exit 1
-    ln -s gdb-10.1 gdb
+    ln -s gdb-9.2 gdb
     echo_info "build gdb success" >> "$destdir/src/install_from_src.log"
 else
     echo_info "build gdb failed" >> "$destdir/src/install_from_src.log"
